@@ -1,0 +1,41 @@
+{
+    "name": "litepubl/mailer",
+    "type": "library",
+    "version": "7.08.0",
+    "description": "Top level interface for manage logs",
+    "keywords": [
+        "Mail",
+        "Mailer"
+    ],
+    "homepage": "https:\/\/github.com\/litepubl\/mailer",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vladimir Yushko",
+            "email": "yarrowsoft@gmail.com",
+            "homepage": "http://litepublisher.ru/",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "yarrowsoft@gmail.com",
+        "source": "https://github.com/litepubl/mailer/releases",
+        "doc": "https://github.com/litepubl/mailer/releases"
+    },
+    "require": {
+        "php": ">=7.00.0"
+    },
+    "require-dev": {
+        "codeception/codeception" : "^2.2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "litepubl\\core\\mailer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "litepubl\\tests\\mailer\\": "tests/unit/"
+        }
+    }
+}
