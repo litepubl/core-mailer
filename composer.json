@@ -24,18 +24,19 @@
     },
     "require": {
         "php": ">=7.00.0"
+        "phpmailer/phpmailer": ">=5.2.23"
     },
     "require-dev": {
         "codeception/codeception" : "^2.2.7"
     },
     "autoload": {
         "psr-4": {
-            "litepubl\\core\\mailer\\": "src/"
+            "LitePubl\\Core\\Mailer\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "litepubl\\tests\\mailer\\": "tests/unit/"
+            "LitePubl\\Tests\\Mailer\\": "tests/unit/"
         }
     }
 }
