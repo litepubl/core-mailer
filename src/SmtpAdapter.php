@@ -4,6 +4,7 @@ namespace LitePubl\Core\Mailer;
 
 use LitePubl\Core\Mailer\Exception\ConnectError;
 use LitePubl\Core\Mailer\Exception\AuthException;
+use \SMTP;
 
 class SmtpAdapter implements AdapterInterface
 {
@@ -11,7 +12,7 @@ class SmtpAdapter implements AdapterInterface
     protected $smtp;
     protected $account;
 
-    public function __construct(\SMTP $smtp, array $account)
+    public function __construct(SMTP $smtp, array $account)
     {
         $this->smtp = $smtp;
         $this->account = $account;

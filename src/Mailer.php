@@ -2,28 +2,42 @@
 
 namespace LitePubl\Core\Mailer;
 
-use LitePubl\Core\Mailer\Exception\Exception;
-use LitePubl\Core\LogManager\LogManagerInterface;
-
 class Mailer implements MailerInterface
 {
     protected $adapter;
-    protected $logManager;
-    private $hold;
+    protected $adminEmail;
+    protected $fromEamil;
 
-    public function __construct(AdapterInterface $adapter, LogManagerInterface $logManager)
+    public function __construct(AdapterInterface $adapter, string $fromEmail, string $adminEmail)
     {
         $this->adapter = $adapter;
-        $this->logManager = $logManager;
-        $this->hold = [];
+        $this->fromEmail = $fromEmail;
+        $this->adminEmail = $adminEmail;
     }
 
     public function send(MessageInterface ... $messages)
     {
-        try {
-            $this->adapter->send($messages);
-        } catch (Exception $e) {
-            $this->logManager->logException($e);
-        }
+           $this->adapter->send($messages);
+    }
+
+    public function newMessage(): MessageInterface
+    {
+        return new Message();
+    }
+
+    public function createMessage(string $fromName, string $fromEmail, string $toName, string $toEmail, string $subject, string $body): MessageInterface
+    {
+        $message = $this->newMessage();
+        $message->setFrom($fromName, $fromEmail);
+        $message->setTo($toName, $toEmail);
+        $message->setSubject($subject);
+        $message->setBody($body);
+        return $message;
+    }
+
+    public function sendToAdmin(string $subject, string $body)
+    {
+        $message = $this->createMessage('LitePubl', $this->fromEamil, 'Admin', $this->adminEmail, $subject, $body);
+        $this->send($message);
     }
 }

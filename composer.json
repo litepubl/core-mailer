@@ -1,7 +1,6 @@
 {
-    "name": "litepubl/mailer",
+    "name": "litepubl/core-mailer",
     "type": "library",
-    "version": "7.08.0",
     "description": "Top level interface for manage logs",
     "keywords": [
         "Mail",
