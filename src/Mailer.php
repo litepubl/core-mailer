@@ -5,13 +5,17 @@ namespace LitePubl\Core\Mailer;
 class Mailer implements MailerInterface
 {
     protected $adapter;
+    protected $fromName;
+    protected $fromEmail;
+    protected $adminName;
     protected $adminEmail;
-    protected $fromEamil;
 
-    public function __construct(AdapterInterface $adapter, string $fromEmail, string $adminEmail)
+    public function __construct(AdapterInterface $adapter, string $fromName, string $fromEmail, string $adminName, string $adminEmail)
     {
         $this->adapter = $adapter;
+        $this->fromName = $fromName;
         $this->fromEmail = $fromEmail;
+        $this->adminName = $adminName;
         $this->adminEmail = $adminEmail;
     }
 
@@ -22,13 +26,14 @@ class Mailer implements MailerInterface
 
     public function newMessage(): MessageInterface
     {
-        return new Message();
+        $result = new Message();
+        $result->setFrom($this->fromName, $this->fromEmail);
+        return $result;
     }
 
-    public function createMessage(string $fromName, string $fromEmail, string $toName, string $toEmail, string $subject, string $body): MessageInterface
+    public function createMessage(string $toName, string $toEmail, string $subject, string $body): MessageInterface
     {
         $message = $this->newMessage();
-        $message->setFrom($fromName, $fromEmail);
         $message->setTo($toName, $toEmail);
         $message->setSubject($subject);
         $message->setBody($body);
@@ -37,7 +42,7 @@ class Mailer implements MailerInterface
 
     public function sendToAdmin(string $subject, string $body)
     {
-        $message = $this->createMessage('LitePubl', $this->fromEamil, 'Admin', $this->adminEmail, $subject, $body);
+        $message = $this->createMessage($this->adminName, $this->adminEmail, $subject, $body);
         $this->send($message);
     }
 }
